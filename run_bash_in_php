@@ -1,0 +1,2 @@
+$output = shell_exec("BASHCOMMAND");
+echo "<pre>$output</pre>";
