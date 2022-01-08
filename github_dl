@@ -1,0 +1,3 @@
+//remember to switch to raw link in github
+
+curl -o filename <raw-link-to-file>
