@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nmap -sV -n -v -Pn -p- -T4 -iL ips.txt -A --open
